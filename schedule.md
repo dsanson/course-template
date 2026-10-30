@@ -59,46 +59,43 @@ Readings are typically assigned by the week. At a minimum, you should complete t
 
 - - W 3/3
 
-- - []{rowspan=2} 9
+- - []{rowspan=2} &nbsp;
   - M 3/8
+  - []{rowspan=2} **Spring Break --- No Class**
 
 - - W 3/10
 
-
-
-- - []{rowspan=2}  &nbsp;
+- - []{rowspan=2} 9
   - M 3/15
-  - []{rowspan=2} **Spring Break --- No Class**
 
-- - Wednesday, 3/17 — No class: Spring Break
+- - W 3/17 
 
-
-- - []{rowspan=2} 11
+- - []{rowspan=2} 10
   - M 3/22
 
 - - W 3/24
 
-- - []{rowspan=2} 12
+- - []{rowspan=2} 11
   - M 3/29
 
 - - W 3/31
 
-- - []{rowspan=2} 13
+- - []{rowspan=2} 12
   - M 4/5
 
 - - W 4/7
 
-- - []{rowspan=2} 14
+- - []{rowspan=2} 13
   - M 4/12
 
 - - W 4/14
 
-- - []{rowspan=2} 15
+- - []{rowspan=2} 14
   - M 4/19
 
 - - W 4/21
 
-- - []{rowspan=2} 16
+- - []{rowspan=2} 15
   - M 4/26
 
 - - W 4/28
