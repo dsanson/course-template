@@ -1,6 +1,6 @@
 ---
 title: 'Syllabus: XXX'
-subtitle: Illinois State, TERM YEAR 
+subtitle: Illinois State, XXX (Term Year)
 type: syllabus
 ---
 
@@ -20,10 +20,10 @@ Office
 :::{.column}
 
 Class Meetings
-:   MW 2:00--3:15PM, 229 Stevenson Hall
+:   XXX MW 2:00--3:15PM, 229 Stevenson Hall
 
 Office Hours
-:   M noon--1:00PM; W 11:00AM--noon
+:   XXX M noon--1:00PM; W 11:00AM--noon
 
 :::
 ::::

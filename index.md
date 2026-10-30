@@ -1,5 +1,5 @@
 ---
-title: REPLACE WITH TITLE
+title: XXX
 author: "David Sanson"
 image: media/cover-image.svg
 image-alt: "A placeholder image"
@@ -18,7 +18,7 @@ format:
 This is the course website for:
 
 PHI XXX: XXX
-:   MW 2:00PM - 3:15PM, Stevenson Hall 0229.
+:   XXX MW 2:00PM - 3:15PM, Stevenson Hall 0229.
 
 I will not be using Canvas. To keep on top of readings and assignments, you need to
 check the [schedule](schedule.md), come to class, and pay attention to in-class announcements. If you are worried
