@@ -10,14 +10,8 @@ Here are some notes for getting up and running:
 
 3.  Currently should produce pdf ua-1, with raw latex as alt tags for math. Keep an eye on typst's efforts to support ua-2.
 
-4.  Create a `.gitignore` file:
+4.  Move `gitignore` to `.gitignore` and `.github` to `.github`.
 
-    ```
-    /.quarto/
-    **/*.quarto_ipynb
-    _plan
-    _site
-    ```
 
 
 
