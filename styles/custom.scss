@@ -1,0 +1,159 @@
+/*-- scss:rules --*/
+
+
+/* math font size
+
+.math {
+  font-size: 85%;
+}
+
+/* list formatting */
+ul,
+dl,
+ol {
+  margin-left: 2em;
+}
+
+/* proper alignment in footer */
+.nav-footer .toc-actions ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* bullet-label list formatting */
+li:has(.li-label) { 
+  list-style: none;
+  position: relative;
+  text-indent: -2em;
+}
+.li-label {
+  margin-right: 0.5em; 
+}
+
+/* example float div formatting */
+
+.example,
+figure.quarto-float-exa {
+
+  padding-left: 1em;
+
+  &> figure > div {
+    text-align: left;
+  }
+}
+
+/* argument formatting */
+figure.quarto-float-arg,
+figure.quarto-float-exa,
+.definition {
+  text-align: left;
+  border: thin solid lightgray;
+  border-radius: .5em;
+  padding: .5em .5em 0 .5em;
+  margin-bottom: 1em;
+  figcaption,
+  .theorem-title {
+    display: block;
+    margin-bottom: -1em;
+    padding-right: 2em;
+    text-align: right;
+    font-size: .8em;
+  };
+  > div {
+    text-align: left;
+    padding: 1em;
+  }
+  &> div > ul,
+  &> div > ol {
+    padding-left: 2em;
+    text-align: left;
+  }
+
+  &> p {
+    margin-bottom: 0;
+  }
+
+  ul > li {
+    list-style: none;
+    text-indent: -2em;
+  }
+  
+  dl {
+    padding-left: 1em;
+  }
+}
+
+
+// /* argument formatting */
+//
+// figure.quarto-float-arg {
+//
+//   padding-left: 1em;
+//
+//   figcaption {
+//     margin-bottom: .5em;
+//   };
+//   &> div > ul {
+//     text-align: left;
+//   }
+//
+//   &> p {
+//     margin-bottom: 0;
+//   }
+//
+//   li {
+//     list-style: none;
+//     padding-left: 1em;
+//     text-indent: -3em;
+//   }
+// }
+
+/* thesis formatting */
+.thesis li {
+  list-style: none;
+  padding-left: 1em;
+  text-indent: -2em;
+}
+
+/* caption formatting */
+figcaption {
+  font-size: inherit;
+}
+
+.authorial-intent {
+  padding: 1em;
+  margin-bottom: 3em;
+}
+
+/* accessibility tweaks */
+/* don't just use color to indicate to links */
+main a {
+  text-decoration: underline !important;
+}
+/* don't dim blockquotes, figcaptions */
+.blockquote,
+figcaption {
+  color: inherit;
+}
+
+/* print tweaks */
+/* don't print header and footer */
+@media print {
+  body {
+    margin: 0; 
+  }
+  #quarto-content {
+    display: block; // to avoid firefox messing up pagebreaks with grid display
+  }
+  #quarto-header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+}
+
+@page {
+  margin: 1in; // margin for each printed piece of paper
+}
+

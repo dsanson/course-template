@@ -1,0 +1,23 @@
+/*-- scss:rules --*/
+
+.callout {
+  font-size: .9em !important;
+
+}
+
+.callout-argument {
+  .callout-title {
+    display: none !important;
+  }
+  ul {
+    padding-left: 2em;
+    li {
+      list-style: none;
+    }
+  }
+}
+
+.displayed-sentence {
+  text-align: center;
+  font-style: italic;
+}

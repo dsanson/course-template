@@ -1,0 +1,40 @@
+format:
+  revealjs: 
+    menu: true
+    progress: true
+    show-notes: false
+    scrollable: true
+    min-scale: 1
+    max-scale: 1
+    template-partials:
+      - templates/title-slide.html
+    theme: [default, ../styles/custom.scss, styles/slides.scss]
+    logo: 
+      path: media/logo.svg
+
+    filters:
+      - attribution
+      - reveal-auto-agenda
+      - roughnotation
+      - cascade
+      - custom-callout
+      - timer
+      - ../filters/label-bullets.lua
+    title-slide-attributes:
+      data-background-size: cover
+      data-background-opacity: "0.5"
+
+custom-callout:
+  argument:
+    icon-symbol: "🥊"
+    color: "yellow"
+    appearance: "minimal"
+  example:
+    icon-symbol: "💭"
+    color: "purple"
+    appearance: "minimal"
+auto-agenda:
+  bullets: numbered
+  heading: Agenda
+  clickable: true
+

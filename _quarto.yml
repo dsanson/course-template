@@ -1,0 +1,85 @@
+project:
+  title: "PHI XXX"
+  type: website
+  pre-render:
+    - scripts/generate-references.sh
+
+website:
+  title: "PHI XXX"
+  description: "Course webpage for PHI XXX at Illinois State"
+  site-url: "https://www.davidsanson.com/XXX"
+  repo-url: https://github.com/dsanson/XXX
+  repo-actions: [source, issue]
+  favicon: media/favicon.png
+  twitter-card: true
+  open-graph: true
+  page-footer: |
+    © 2026 David Sanson. Created using [Quarto](https://quarto.org/).
+  navbar:
+    logo: media/favicon.png
+    logo-alt: 'Φ'
+    left:
+      - href: index.md
+        text: Home
+      - href: syllabus.md
+        text: Syllabus
+      - href: schedule.md
+        text: Schedule
+
+bibliography: [references.json]
+citeproc: true
+filters:
+  - filters/label-bullets.lua
+
+metadata:
+  author:
+  - name: David Sanson
+    orcid: 0009-0002-4562-5090
+    email: desanso@ilstu.edu
+    affiliations:
+      name: Illinois State University
+  course: PHI XXX
+
+callout-appearance: minimal
+
+format:
+  html:
+    axe: true
+    toc: true
+    respect-user-color-scheme: true
+    template-partials:
+      - templates/title-metadata.html
+    theme:
+      light: 
+        - flatly
+        - styles/theme-light.scss
+        - styles/custom.scss
+      dark: 
+        - darkly
+        - styles/custom.scss
+    link-external-icon: true
+    link-external-newwindow: true
+    citations-hover: true
+    footnotes-hover: true
+
+    format-links:
+    - html
+    - format: typst
+      icon: file-pdf
+      text: PDF
+        
+  typst:
+    pdf-standard: ua-1
+    citeproc: true
+    filters:
+      - filters/math-alt.lua
+      - filters/label-bullets.lua
+    template-partials:
+    - templates/typst-template.typ
+    fontsize: 10pt
+    # mainfont: "libertinus serif"
+    # sansfont: "liberation sans"
+    margin:
+      x: 1in
+      y: 1in
+    papersize: us-letter

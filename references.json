@@ -1,0 +1,57 @@
+[
+  {
+    "id": "austin1961a",
+    "author": [
+      {
+        "family": "Austin",
+        "given": "J. L."
+      }
+    ],
+    "citation-key": "austin1961a",
+    "container-title": "Philosophical Papers",
+    "editor": [
+      {
+        "family": "Urmson",
+        "given": "J. O."
+      },
+      {
+        "family": "Warnock",
+        "given": "G. J."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "1961"
+        ]
+      ]
+    },
+    "language": "en-US",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Performative utterances",
+    "type": "chapter"
+  },
+  {
+    "id": "austin1962",
+    "author": [
+      {
+        "family": "Austin",
+        "given": "J. L."
+      }
+    ],
+    "citation-key": "austin1962",
+    "issued": {
+      "date-parts": [
+        [
+          "1962"
+        ]
+      ]
+    },
+    "language": "en-US",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "How to do things with words",
+    "type": "book"
+  }
+]
