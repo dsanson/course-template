@@ -10,7 +10,7 @@ format:
       - templates/title-slide.html
     theme: [default, ../styles/custom.scss, styles/slides.scss]
     logo: 
-      path: media/logo.svg
+      path: media/logo-generated.svg
 
     filters:
       - attribution

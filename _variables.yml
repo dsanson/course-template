@@ -1,0 +1,19 @@
+  course:
+    number: 1xx 
+    title: "Underwater Basketweaving"
+    term: Paideia 
+    shortterm: p
+    year: 1991
+    instructor:
+      name: David Sanson
+      url: "https://www.davidsanson.com"
+    institution: Illinois State University
+    slug: "{{< var course.number >}}{{< var course.shorterm >>}{{< var course.year >}}"
+    meeting:
+      - time: MW 2:00PM--3:15PM
+        place: Community Pool
+    office-hours:
+      time: "M noon--1:00PM; W 11:00AM--noon"
+      place: Stevenson 341
+    description: |
+      {{< lipsum 1 >}}

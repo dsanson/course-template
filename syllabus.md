@@ -1,34 +1,23 @@
 ---
-title: 'Syllabus: XXX'
-subtitle: Illinois State, XXX (Term Year)
+title: 'Syllabus: PHI {{< var course.number >}}}'
+subtitle: "{{< var course.institution >}}, {{< var course.term >}} {{< var course.year >}}"
 type: syllabus
 ---
 
 ## Basic Information
 
-::::{.columns}
-
-:::{.column}
-
 Instructor
-:   [David Sanson](https://www.davidsanson.com)
-
-Office
-:   Stevenson 341
-
-:::
-:::{.column}
+:   [{{< var course.instructor.name >}}]({{< var course.instructor.url >}})
 
 Class Meetings
-:   XXX MW 2:00--3:15PM, 229 Stevenson Hall
+:  {{< var course.meeting.1.time >}}, {{< var course.meeting.1.place >}}.
 
 Office Hours
-:   XXX M noon--1:00PM; W 11:00AM--noon
-
-:::
-::::
+:   {{< var course.office-hours.time >}}, {{< var course.office-hours.place >}}
 
 ## Course Description
+
+{{< var course.description >}}
 
 ## Class
 

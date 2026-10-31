@@ -1,23 +1,24 @@
 project:
-  title: "PHI XXX"
+  title: "PHI XXX" # resolving variables does not work here. Do it by hand.
   type: website
   pre-render:
     - scripts/generate-references.sh
 
 website:
-  title: "PHI XXX"
-  description: "Course webpage for PHI XXX at Illinois State"
-  site-url: "https://www.davidsanson.com/XXX"
-  repo-url: https://github.com/dsanson/XXX
+  title: "PHI XXX" # resolving variables does not work here. Do it by hand.
+  description: "Course webpage for PHI {{< var course.number >}} at Illinois State, {{< var course.term >}} {{< var course.year >}}"
+  site-url: "https://www.davidsanson.com/XXX" # resolving variables does not work here. Do it by hand.
+  repo-url: "https://github.com/dsanson/XXX" # resolving variables does not work here. Do it by hand.
+
   repo-actions: [source, issue]
-  favicon: media/favicon.png
+  favicon: media/favicon-generated.svg
   twitter-card: true
   open-graph: true
   page-footer: |
-    © 2026 David Sanson. Created using [Quarto](https://quarto.org/).
+    © {{< var course.year >}} David Sanson. Created using [Quarto](https://quarto.org/).
   navbar:
-    logo: media/favicon.png
-    logo-alt: 'Φ'
+    logo: media/favicon-generated.svg
+    logo-alt: 'PHI'
     left:
       - href: index.md
         text: Home
@@ -30,15 +31,16 @@ bibliography: [references.json]
 citeproc: true
 filters:
   - filters/label-bullets.lua
+  - filters/replace-svg.lua
 
 metadata:
   author:
   - name: David Sanson
     orcid: 0009-0002-4562-5090
     email: desanso@ilstu.edu
+    url: "https://www.davidsanson.com"
     affiliations:
       name: Illinois State University
-  course: PHI XXX
 
 callout-appearance: minimal
 
@@ -68,6 +70,10 @@ format:
       icon: file-pdf
       text: PDF
         
+    include-in-header:
+      text: |
+        <link rel="apple-touch-icon" sizes="180x180" href="/media/apple-touch-icon.png">
+
   typst:
     pdf-standard: ua-1
     citeproc: true
