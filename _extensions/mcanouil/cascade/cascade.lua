@@ -1,5 +1,5 @@
 --- Reveal.js Cascade - Filter
---- @module cascade
+--- @module "cascade"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
@@ -23,9 +23,11 @@
 ---   and for reveal.js output only.
 ---   The full heading chain is always repeated in this case; the
 ---   heading-after-`---` shortening only applies at the top level.
+---   When the Div opens with a heading, that heading is repeated inside
+---   every reopened Div, so a callout titled by a heading keeps its title.
 ---
 ---   For non-reveal.js formats, behaviour depends on the `keep-hrule` option
----   (default: `true`).
+---   (default: `false`).
 ---   When `false`, horizontal rules are removed from the output.
 ---
 ---   The filter runs at the `pre-ast` entry point, before Quarto normalises
@@ -49,32 +51,55 @@
 ---
 ---   Headings below the slide level create section wrappers in reveal.js
 ---   output, so they are skipped when cloning the chain on `---` slides.
----   Accounts for `shift-heading-level-by` (applied after filters run) by
----   combining the metadata value with an AST scan: the metadata shift is
----   authoritative when present, and the AST scan recovers the correct
----   slide level when shift is set under a format-scoped option (e.g.
----   `format.revealjs.shift-heading-level-by`) that is not yet flattened
----   onto `doc.meta` when the filter runs.
+---   Quarto treats `shift-heading-level-by` as a pandoc option and applies it
+---   after filters run, so no channel exposes it to this filter. A document
+---   that sets it must declare the same value as `extensions.cascade.shift`,
+---   which is subtracted from the writer's slide level to give the slide
+---   level in AST coordinates.
 
 local EXTENSION_NAME = 'cascade'
 local DEPTH_ATTRIBUTE = 'cascade-depth'
+local MAXIMUM_HEADING_LEVEL = 6
 
 --- Load the shared logging module bundled with this extension.
-local log = require(quarto.utils.resolve_path('_modules/logging.lua'):gsub('%.lua$', ''))
+local log = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/logging.lua'):gsub('%.lua$', ''))
+local schema = require(quarto.utils.resolve_path('_vendor/quarto-wizard/schema.lua'):gsub('%.lua$', ''))
+local check = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/schema-check.lua'):gsub('%.lua$', ''))
+
+--- The schema check, built once and reused for the whole document. It reads
+--- `_schema.yml` on the way in and checks the document configuration once.
+---
+--- The validator is injected rather than required by the check module, so the
+--- two vendored sources stay independent of where the other was placed.
+---
+--- The extension contributes a filter and no shortcode, so the check runs from
+--- the document handler, at the top, before the first option is read.
+---
+--- A schema that cannot be read is reported by the module as an error and the
+--- render carries on: a configuration file must not stop a document.
+local checker = check.new(schema, EXTENSION_NAME)
+
+--- Read a raw `extensions.cascade.<key>` value from document metadata.
+--- @param meta pandoc.Meta The document metadata.
+--- @param key string The option name.
+--- @return any|nil The metadata value, or `nil` when the option is unset.
+local function get_option(meta, key)
+  local extensions = meta['extensions']
+  if not extensions then
+    return nil
+  end
+  local cascade = extensions['cascade']
+  if not cascade then
+    return nil
+  end
+  return cascade[key]
+end
 
 --- Read the `keep-hrule` extension option from document metadata.
 --- @param meta pandoc.Meta The document metadata.
 --- @return boolean Whether to keep horizontal rules in non-reveal.js formats.
 local function get_keep_hrule(meta)
-  local extensions = meta['extensions']
-  if not extensions then
-    return false
-  end
-  local cascade = extensions['cascade']
-  if not cascade then
-    return false
-  end
-  local keep = cascade['keep-hrule']
+  local keep = get_option(meta, 'keep-hrule')
   if keep == nil then
     return false
   end
@@ -82,23 +107,48 @@ local function get_keep_hrule(meta)
 end
 
 --- Read the `depth` extension option from document metadata.
+--- Emits a warning and returns `nil` when the value is not a non-negative
+--- integer.
 --- @param meta pandoc.Meta The document metadata.
 --- @return integer|nil The maximum number of heading levels to repeat, or
 ---   `nil` when no limit is set.
 local function get_depth(meta)
-  local extensions = meta['extensions']
-  if not extensions then
+  local raw = get_option(meta, 'depth')
+  if raw == nil then
     return nil
   end
-  local cascade = extensions['cascade']
-  if not cascade then
+  local text = pandoc.utils.stringify(raw)
+  local parsed = tonumber(text)
+  if parsed == nil or parsed < 0 or parsed ~= math.floor(parsed) then
+    log.log_warning(
+      EXTENSION_NAME,
+      'Ignoring "depth" option "' .. text .. '": expected a whole number of '
+        .. 'zero or more. Repeating the whole chain.'
+    )
     return nil
   end
-  local depth = cascade['depth']
-  if depth == nil then
-    return nil
+  return parsed
+end
+
+--- Read the `shift` extension option from document metadata.
+--- Emits a warning and returns `0` when the value is not a whole number.
+--- @param meta pandoc.Meta The document metadata.
+--- @return integer The heading level shift, or `0` when unset.
+local function get_shift(meta)
+  local raw = get_option(meta, 'shift')
+  if raw == nil then
+    return 0
   end
-  return tonumber(pandoc.utils.stringify(depth))
+  local text = pandoc.utils.stringify(raw)
+  local parsed = tonumber(text)
+  if parsed == nil or parsed ~= math.floor(parsed) then
+    log.log_warning(
+      EXTENSION_NAME,
+      'Ignoring "shift" option "' .. text .. '": expected a whole number.'
+    )
+    return 0
+  end
+  return parsed
 end
 
 --- Parse a per-heading `cascade-depth` attribute as a non-negative integer.
@@ -108,17 +158,19 @@ end
 --- @return integer|nil The parsed depth, or `nil` to fall back to the
 ---   document-level setting.
 local function read_heading_depth(header)
-  local raw = header.attributes[DEPTH_ATTRIBUTE]
-  if raw == nil then
+  local resolved = checker:attributes(header.attributes, nil) or {}
+  local written = header.attributes[DEPTH_ATTRIBUTE]
+  header.attributes[DEPTH_ATTRIBUTE] = nil
+  if written == nil then
     return nil
   end
-  header.attributes[DEPTH_ATTRIBUTE] = nil
-  local parsed = tonumber(raw)
+  local value = resolved[DEPTH_ATTRIBUTE]
+  local parsed = type(value) == 'number' and value or nil
   if parsed == nil or parsed < 0 or parsed ~= math.floor(parsed) then
     log.log_warning(
       EXTENSION_NAME,
       'Ignoring non-integer "' .. DEPTH_ATTRIBUTE .. '" on heading "'
-        .. pandoc.utils.stringify(header.content) .. '": "' .. raw .. '".'
+        .. pandoc.utils.stringify(header.content) .. '": "' .. written .. '".'
     )
     return nil
   end
@@ -128,41 +180,28 @@ end
 --- Detect the effective slide level in AST coordinates.
 --- `PANDOC_WRITER_OPTIONS.slide_level` is the writer's (post-shift) slide
 --- level. The AST still has pre-shift heading levels, so the AST slide
---- level is `slide_level - shift`.
---- The shift is read from metadata when available; otherwise, the AST is
---- scanned for the smallest heading level whose `Header` is directly
---- followed by non-`Header` content (mirrors pandoc's auto slide-level
---- algorithm) and used to escalate the slide level when it indicates a
---- deeper effective level than the metadata path.
---- @param blocks pandoc.Blocks The document blocks.
+--- level is `slide_level - shift`, with the shift taken from the
+--- `extensions.cascade.shift` option.
+--- A shift that puts the result outside the range of a heading level makes
+--- every chain empty, so no `---` would produce a slide break. That is
+--- always a mistake in the option, so it is reported and the shift ignored.
 --- @param meta pandoc.Meta The document metadata.
 --- @return integer The slide level in AST coordinates.
-local function detect_slide_level(blocks, meta)
+local function detect_slide_level(meta)
   local slide_level = 2
   if PANDOC_WRITER_OPTIONS and PANDOC_WRITER_OPTIONS.slide_level then
     slide_level = PANDOC_WRITER_OPTIONS.slide_level
   end
-  local shift_meta = meta['shift-heading-level-by']
-  local shift = 0
-  if shift_meta then
-    shift = tonumber(pandoc.utils.stringify(shift_meta)) or 0
-  end
+  local shift = get_shift(meta)
   local ast_slide_level = slide_level - shift
-  if shift == 0 then
-    local from_ast = nil
-    for i, block in ipairs(blocks) do
-      if block.t == 'Header' then
-        local next_block = blocks[i + 1]
-        if next_block and next_block.t ~= 'Header' then
-          if not from_ast or block.level < from_ast then
-            from_ast = block.level
-          end
-        end
-      end
-    end
-    if from_ast and from_ast > ast_slide_level then
-      ast_slide_level = from_ast
-    end
+  if ast_slide_level < 1 or ast_slide_level > MAXIMUM_HEADING_LEVEL then
+    log.log_warning(
+      EXTENSION_NAME,
+      'Ignoring "shift" option ' .. shift .. ': it puts the slide level at '
+        .. ast_slide_level .. ', outside the range 1 to '
+        .. MAXIMUM_HEADING_LEVEL .. ', which would repeat no heading at all.'
+    )
+    return slide_level
   end
   return ast_slide_level
 end
@@ -214,7 +253,10 @@ end
 --- `HorizontalRule`s, replace it with a sequence of clones of the Div, one
 --- per non-empty fragment, separated by `HorizontalRule`s at the slide
 --- level. The identifier is cleared on every clone after the first to avoid
---- duplicate IDs. Only applies to reveal.js output; `.panel-tabset` Divs and
+--- duplicate IDs. When the Div opens with a heading, that heading is
+--- repeated at the top of every clone after the first, so a callout titled
+--- by a heading keeps its title on continuation slides.
+--- Only applies to reveal.js output; `.panel-tabset` Divs and
 --- cross-reference targets (identifier of the form `<type>-<label>`, e.g.
 --- `tbl-results`, `fig-plot`, `thm-main`) are left untouched.
 --- Parameter and return types are provided by the Quarto Lua plugin.
@@ -232,6 +274,10 @@ function Div(div)
   if not found then
     return nil
   end
+  local title = nil
+  if div.content[1] and div.content[1].t == 'Header' then
+    title = div.content[1]
+  end
   local blocks = pandoc.Blocks({})
   for index, piece in ipairs(pieces) do
     local not_first = index > 1
@@ -240,10 +286,16 @@ function Div(div)
     end
     if #piece > 0 then
       local attr = div.attr:clone()
+      local content = pandoc.Blocks(piece)
       if not_first then
         attr.identifier = ''
+        if title then
+          local clone = title:clone()
+          clone.identifier = ''
+          content:insert(1, clone)
+        end
       end
-      blocks:insert(pandoc.Div(pandoc.Blocks(piece), attr))
+      blocks:insert(pandoc.Div(content, attr))
     end
   end
   return blocks
@@ -259,6 +311,8 @@ end
 --- based on the `keep-hrule` option.
 --- Parameter and return types are provided by the Quarto Lua plugin.
 function Pandoc(doc)
+  checker:options(doc.meta)
+
   if not quarto.doc.is_format('revealjs') then
     local keep_hrule = get_keep_hrule(doc.meta)
     if keep_hrule then
@@ -270,7 +324,7 @@ function Pandoc(doc)
     return doc
   end
 
-  local slide_level = detect_slide_level(doc.blocks, doc.meta)
+  local slide_level = detect_slide_level(doc.meta)
   local document_depth = get_depth(doc.meta)
   local parents = {}
   local chain = {}

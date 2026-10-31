@@ -2,15 +2,52 @@
 
 This is a template for my course websites.
 
-Here are some notes for getting up and running:
+Here are some notes for getting up and running.
 
-1.  Run `rg XXX` to find placeholder text. Replace as appropriate.
+Start by running,
 
-2.  The pre-render script assumes that `generate_references` is available in the PATH.
+```bash
+quarto use template dsanson/course-template
+```
 
-3.  Currently should produce pdf ua-1, with raw latex as alt tags for math. Keep an eye on typst's efforts to support ua-2.
+All of the bits and bobs that need to be specified for the course should be marked with the placeholder 'XXX'. So run,
 
-4.  Move `gitignore` to `.gitignore` and `.github` to `.github`.
+```bash
+rg XXX
+```
+
+and replace as appropriate.
+
+Note that the pre-render script in `_quarto.yml` assumes that `generate_references` is available in PATH, and `generate_references` makes
+assumptions about the location of a global bibilography json file.
+
+Move `gitignore` and `github` to `.gitignore` and `.github`:
+
+```bash
+mv gitignore .gitignore
+mv github .github
+```
+
+Re-install extensions. Quarto 1.11 [should fix this bug](https://github.com/quarto-dev/quarto-cli/pull/14010).
+
+Commit changes and push to a new github repo:
+
+```bash
+gh repo create XXX --source=. --public --remote=origin --push
+```
+
+Publish locally to gh-pages branch:
+
+```bash
+quarto publish gh-pages
+```
+
+Push to github. Double-check that the github action is building properly and the Github Pages settings are correct and the Github Pages settings are correct and the Github Pages settings are correct and the Github Pages settings are correct.
+
+
+Note that currently this is set to produce pdf ua-1 and uses the `math-alt.lua` filter to add raw latex as alt text for inline math. Once typst merges ua-2 support, this should no longer be necessary.
+
+
 
 
 
