@@ -10,13 +10,13 @@ Start by running,
 quarto use template dsanson/course-template
 ```
 
-All of the bits and bobs that need to be specified for the course should be marked with the placeholder 'XXX'. So run,
+Edit `_variables.yml`. There are some yaml keys that cannot be populated using Quarto variables. These have been marked with the placeholder XXX. So,
 
 ```bash
 rg XXX
 ```
 
-and replace as appropriate.
+to find and replace.
 
 Note that the pre-render script in `_quarto.yml` assumes that `generate_references` is available in PATH, and `generate_references` makes
 assumptions about the location of a global bibilography json file.

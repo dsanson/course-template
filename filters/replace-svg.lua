@@ -96,13 +96,6 @@ local function scan_directory(dir)
             if changed or not read_file(favicon_png) or not read_file(apple_icon) then
               pandoc.pipe("inkscape", {
                 generated_path,
-                "--export-filename=" .. favicon_png,
-                "--export-width=32",
-                "--export-height=32"
-              }, "")
-
-              pandoc.pipe("inkscape", {
-                generated_path,
                 "--export-filename=" .. apple_icon,
                 "--export-width=180",
                 "--export-height=180"
