@@ -90,10 +90,9 @@ local function scan_directory(dir)
           -- Export only when the generated SVG changes or an icon is missing
           if path:gsub("\\", "/"):match("media/favicon%.svg$") then
             local dir = pandoc.path.directory(path)
-            local favicon_png = pandoc.path.join({ dir, "favicon-32x32.png" })
             local apple_icon = pandoc.path.join({ dir, "apple-touch-icon.png" })
 
-            if changed or not read_file(favicon_png) or not read_file(apple_icon) then
+            if changed or not read_file(apple_icon) then
               pandoc.pipe("inkscape", {
                 generated_path,
                 "--export-filename=" .. apple_icon,
