@@ -28,6 +28,10 @@ jobs:
         run: |
           quarto install extension --no-prompt pandoc-ext/diagram
 
+      - name: Install verapdf
+        run: |
+          quarto install verapdf --no-prompt
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
