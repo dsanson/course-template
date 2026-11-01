@@ -4,6 +4,7 @@ subtitle: "PHI {{< var course.number >}} ({{< var course.term >}} {{< var course
 image: media/cover-image.svg
 image-alt: "A gray rectangle."
 image-title: "A placeholder image"
+image-url: http://example.com
 format:
   html:
     toc: false
@@ -59,7 +60,7 @@ Office Hours
 
 ::: {#second-column} 
 
-![[{{< meta image-title >}}]{style="color: hsl(0,0%,75%); font-size: .9rem; text-align: center;"}]({{< meta image >}}){alt="{{< meta image-alt >}}" .lightbox }
+![[{{< meta image-title >}}]({{< meta image-url >}}){style="color: hsl(0,0%,75%); font-size: .9rem; text-align: center;"}]({{< meta image >}}){alt="{{< meta image-alt >}}" .lightbox }
 
 :::
 
