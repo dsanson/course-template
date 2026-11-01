@@ -38,20 +38,20 @@ format:
 
 ### {{< meta subtitle >}} {.index-subtitle}
 
-I do not use Canvas.
-This is our course webpage.
-To keep on top of readings and assignments, you need to
+I will not use Canvas, so this is our course webpage.
+To stay on top of readings and assignments, you need to
 check the [schedule](schedule.md), come to class, and pay attention to in-class announcements. 
 
-There is no online grade book. If you want to know 
-your grade, you can calculate it yourself, or come to my office hours and ask!
+There is no online grade book, so if you want to know 
+your grade, either you can calculate it yourself or you can ask me!
 
-**Description.**
-{{< var course.description >}} 
+See the [syllabus](syllabus.md) for more details about the course topic and course assignments.
 
+I am teaching two sections of this course. Attend the section for which you are enrolled.
 
 Class Meetings
 :  {{< var course.meeting.1.time >}}, {{< var course.meeting.1.place >}}.
+:  {{< var course.meeting.2.time >}}, {{< var course.meeting.2.place >}}.
 
 Office Hours
 :   {{< var course.office-hours.time >}}, {{< var course.office-hours.place >}}
