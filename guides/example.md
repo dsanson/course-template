@@ -26,7 +26,7 @@ Frege!)
 
 ## Slides and Handouts
 
--  [Slides](/slides/example.md)
+-  [Slides](/slides/example.md){target="_blank"}
 -  [Handout](/handouts/example.md)
 
 ## References {-}

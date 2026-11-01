@@ -15,8 +15,10 @@ format:
 
 :::{#about-this-course}
 
-This is the course website for {{< var course.title >}}, {{< var course.term >}} {{< var course.year >}}, at {{< var course.institution >}}.
+{{< var course.description >}} 
 
+
+This is the course website for PHI {{< var course.number >}} ({{< var course.term >}} {{< var course.year >}}).
 **I will not be using Canvas.** To keep on top of readings and assignments, you need to
 check the [schedule](schedule.md), come to class, and pay attention to in-class announcements. There is **no online grade book**. If you want to know 
 your grade, you can calculate it yourself, or come to my office hours and ask!
@@ -27,7 +29,6 @@ Class Meetings
 Office Hours
 :   {{< var course.office-hours.time >}}, {{< var course.office-hours.place >}}
 
-{{< var course.description >}} 
 
 :::
 
