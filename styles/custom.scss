@@ -30,6 +30,13 @@ li:has(.li-label) {
   margin-right: 0.5em; 
 }
 
+
+/* tds with rowspan should be vertically centered */
+td[rowspan="2"] {
+  vertical-align: middle;
+}
+
+
 /* example float div formatting */
 
 .example,
