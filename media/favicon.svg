@@ -20,5 +20,5 @@
     dominant-baseline="central"
     font-size="100"
     font-weight="700"
-    fill="#ffffff">{{< var course.number >}}</text>
+    fill="#ffffff">{{< meta course.number >}}</text>
 </svg>

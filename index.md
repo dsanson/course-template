@@ -1,6 +1,6 @@
 ---
-title: '{{< var course.title >}}'
-subtitle: "PHI {{< var course.number >}} ({{< var course.term >}} {{< var course.year >}})"
+title: '{{< meta course.title >}}'
+subtitle: "PHI {{< meta course.number >}} ({{< meta course.term >}} {{< meta course.year >}})"
 image: media/cover-image.svg
 image-alt: "A gray rectangle."
 image-title: "A placeholder image"
@@ -50,11 +50,11 @@ See the [syllabus](syllabus.md) for more details about the course topic and cour
 I am teaching two sections of this course. Attend the section for which you are enrolled.
 
 Class Meetings
-:  {{< var course.meeting.1.time >}}, {{< var course.meeting.1.place >}}.
-:  {{< var course.meeting.2.time >}}, {{< var course.meeting.2.place >}}.
+:  {{< meta course.meeting.1.time >}}, {{< meta course.meeting.1.place >}}.
+:  {{< meta course.meeting.2.time >}}, {{< meta course.meeting.2.place >}}.
 
 Office Hours
-:   {{< var course.office-hours.time >}}, {{< var course.office-hours.place >}}
+:   {{< meta course.office-hours.time >}}, {{< meta course.office-hours.place >}}
 
 :::
 

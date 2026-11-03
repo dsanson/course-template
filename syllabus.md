@@ -1,23 +1,23 @@
 ---
-title: 'Syllabus: PHI {{< var course.number >}}}'
-subtitle: "{{< var course.institution >}}, {{< var course.term >}} {{< var course.year >}}"
+title: 'Syllabus: PHI {{< meta course.number >}}}'
+subtitle: "{{< meta course.institution >}}, {{< meta course.term >}} {{< meta course.year >}}"
 type: syllabus
 ---
 
 ## Basic Information
 
 Instructor
-:   [{{< var course.instructor.name >}}]({{< var course.instructor.url >}})
+:   [{{< meta course.instructor.name >}}]({{< meta course.instructor.url >}})
 
 Class Meetings
-:  {{< var course.meeting.1.time >}}, {{< var course.meeting.1.place >}}.
+:  {{< meta course.meeting.1.time >}}, {{< meta course.meeting.1.place >}}.
 
 Office Hours
-:   {{< var course.office-hours.time >}}, {{< var course.office-hours.place >}}
+:   {{< meta course.office-hours.time >}}, {{< meta course.office-hours.place >}}
 
 ## Course Description
 
-{{< var course.description >}}
+{{< meta course.description >}}
 
 ## Class
 

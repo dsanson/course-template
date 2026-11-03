@@ -1,7 +1,6 @@
 ---
 title: "Pornography as a Speech Act"
 date: 2026-10-28
-type: handout
 ---
 
 @. Langton offers four examples of illocutionary disablement: "fire!"; gay

@@ -1,21 +1,21 @@
 project:
-  title: "PHI XXX" # resolving variables does not work here. Do it by hand.
+  title: "PHI XXX" 
   type: website
   pre-render:
     - scripts/generate-references.sh
 
 website:
-  title: "PHI XXX" # resolving variables does not work here. Do it by hand.
-  description: "Course webpage for PHI {{< var course.number >}} at Illinois State, {{< var course.term >}} {{< var course.year >}}"
-  site-url: "https://www.davidsanson.com/XXX" # resolving variables does not work here. Do it by hand.
-  repo-url: "https://github.com/dsanson/XXX" # resolving variables does not work here. Do it by hand.
+  title: "PHI XXX"
+  description: "Course webpage for PHI {{< meta course.number >}} at Illinois State, {{< meta course.term >}} {{< meta course.year >}}"
+  site-url: "https://www.davidsanson.com/XXX"
+  repo-url: "https://github.com/dsanson/XXX"
 
   repo-actions: [source, issue]
   favicon: media/favicon-generated.svg
   twitter-card: true
   open-graph: true
   page-footer: |
-    © {{< var course.year >}} David Sanson. Created using [Quarto](https://quarto.org/).
+    © {{< meta course.year >}} David Sanson. Created using [Quarto](https://quarto.org/).
   navbar:
     logo: media/favicon-generated.svg
     logo-alt: 'PHI'
@@ -33,12 +33,6 @@ website:
       **Alert**: This is a draft course website produced from a template.
     position: above-navbar
 
-bibliography: [references.json]
-citeproc: true
-filters:
-  - filters/label-bullets.lua
-  - filters/replace-svg.lua
-
 metadata:
   author:
   - name: David Sanson
@@ -47,8 +41,38 @@ metadata:
     url: "https://www.davidsanson.com"
     affiliations:
       name: Illinois State University
+  course:
+    number: 1xx
+    title: "An Introduction to the Principles of Underwater Basketweaving"
+    term: Paideia 
+    shortterm: p
+    year: 1991
+    instructor:
+      name: David Sanson
+      url: "https://www.davidsanson.com"
+      office: Stevenson 341
+    institution: Illinois State University
+    slug: "{{< meta course.number >}}{{< meta course.shortterm >}}{{< meta course.year >}}"
+    url: "https://www.davidsanson.com/1xxp1991"
+    meeting:
+      - time: MW 2:00--3:15pm
+        place: Community Pool
+      - time: MW 3:35--4:50pm
+        place: Community Pool
+      - time: MW 5:00--6:15pm
+        place: Community Pool
+    office-hours:
+      time: "M noon--1:00PM; W 11:00AM--noon"
+      place: Stevenson 341
+    description: |
+      {{< lipsum 1 >}}
 
 callout-appearance: minimal
+bibliography: [references.json]
+citeproc: true
+filters:
+  - filters/label-bullets.lua
+  - filters/replace-svg.lua
 
 format:
   html:
