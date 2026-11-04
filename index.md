@@ -1,8 +1,8 @@
 ---
 title: '{{< meta course.title >}}'
 subtitle: "PHI {{< meta course.number >}} ({{< meta course.term >}} {{< meta course.year >}})"
-image: media/cover-image.svg
-image-alt: "A gray rectangle."
+image: media/cover-image.png
+image-alt: "Some folks weaving baskets underwater."
 image-title: "A placeholder image"
 image-url: http://example.com
 format:

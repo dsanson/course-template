@@ -1,7 +1,10 @@
 ---
 title: "Flyer for {{< meta course.title >}}"
+accent-color: blue
+course-url: "`{{< meta course.url >}}`{=typst}"
 flyer-image:
-  path: "media/cover-image.jpg"
+  path: "media/cover-image.png"
+  attribution: "`@underwaterbasketweaving8816`{=typst}"
 
 format:
   typst:
@@ -13,3 +16,5 @@ format:
     filters: []
 ---
 
+**Blurb**. If 'course.description' or 'course.prerequisites' are defined in your project's metadata, they will be used here. But you can also just
+add material directly to the flier, like this blurb.

@@ -68,11 +68,18 @@ $endif$
 $if(course.description)$
   description: "$course.description$",
 $endif$
+$if(course.short-description)$
+  short-description: "$course.short-description$",
+$endif$
 $if(flyer-image.path)$
   image-path: "$flyer-image.path$",
 $endif$
-$if(course.url)$
-  url: "$course.url$",
+$if(flyer-image.attribution)$
+  image-attribution: "$flyer-image.attribution$",
+$endif$
+
+$if(course-url)$
+  url: "$course-url$",
 $endif$
 $if(course.instructor.name)$
   instructor: "$course.instructor.name$",
@@ -84,7 +91,7 @@ $if(course.term)$
   course-term: "$course.term$",
 $endif$
 $if(course.year)$
-  course-year: "$course.ear$",
+  course-year: "$course.year$",
 $endif$
 $if(course.prerequisites)$
   prerequisites: "$course.prerequisites$",

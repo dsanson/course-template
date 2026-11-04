@@ -1,5 +1,7 @@
 #import "@preview/cades:0.3.1": qr-code
 
+#let muted = black.lighten(75%)
+
 #let flyer(
   title: none,
   authors: none,
@@ -26,7 +28,9 @@
   course-title: none,
   course-number: none,
   description: none,
+  short-description: none,
   image-path: "media/cover-image.svg",
+  image-attribution: none,
   url: none,
   instructor: none,
   office: none,
@@ -46,7 +50,7 @@
   set text(font: font, size: 10pt, fill: black)
   set par(leading: 0.5em)
   let light-accent-color = if light-accent-color == none {
-    accent-color.lighten(80%)
+    accent-color.lighten(90%)
   } else {
     light-accent-color
   }
@@ -59,6 +63,7 @@
       width: 100%,
       height: 7.64in,
       fill: light-accent-color,
+      stroke: (top: 2pt + muted),
     )
   )
 
@@ -72,8 +77,7 @@
       #set par(leading: .2em)
       #set par(spacing: .4em)
       #set text(size: 28pt, weight: "bold")
-      #text(fill: accent-color)[#smallcaps[phi]]
-      #text[#course-number]
+      #text(fill: accent-color)[#smallcaps[phi]]#text[#course-number]
 
       #text(size: 28pt, weight: "bold", fill: black)[#smallcaps[#course-title]]
     ]
@@ -84,7 +88,13 @@
     dy: 2in,
   )[
     #if image-path != none {
+      set par(spacing: .1em)
+      set align(right)
       image(image-path, width: 100% - .66in, height: 3in, fit: "cover")
+
+      if image-attribution != none {
+        text(size: 6pt, style: "italic")[#image-attribution]
+      }
     }
   ]
  
@@ -99,6 +109,16 @@
       height: 5in,
       clip: true,
     )[
+      #text(size:18pt, weight: "bold")[
+        #short-description
+      ]
+
+      #text[
+        #instructor
+        #box(image("media/fleuron.svg", width: 1.5em))
+        #course-term #course-year
+      ]
+
       #grid(
         columns: (1.5fr, 0.5fr),
         gutter: 0.16in,
@@ -106,14 +126,20 @@
         block(
         )[
           #set align(left)
-          #text(size: 14pt, weight: "bold")[About the course]
-          #v(0.08in)
-          #description
+          #set par(spacing: 1em)
+
+          #if description != none {
+            text(weight: "bold")[About the course. ]
+            description
+          }
+          
+          #doc
 
           #if prerequisites != none  { 
-            text(weight: "bold")[Prerequisites.]
-            text[ #prerequisites]
+            text(weight: "bold")[Prerequisites. ]
+            prerequisites
           }
+
         ],
 
         block(
@@ -122,20 +148,16 @@
           #set text(size: 9pt)
           #set align(right)
 
-          #line(length: 100%, stroke: 0.8pt)
-          #text(weight: "bold")[Instructor]\ 
-          #text[#instructor]\ 
-          #text[#office]
-          #v(0.08in)
+          #line(length: 100%, stroke: 0.8pt + muted)
 
-          #text(weight: "bold")[Times]\ 
           #for meeting in meetings [
             #par[
               #meeting.time \
               #meeting.place
             ]
           ]
-          #line(length: 100%, stroke: 0.8pt)
+
+          #line(length: 100%, stroke: 0.8pt + muted)
 
         ],
       )
@@ -147,7 +169,9 @@
     dx: -.33in,
     dy: -.33in,
   )[
+    #set par(spacing: .2em)
     #qr-code(url, width: 1in, height: 1in)
+    #text(size:6pt)[#url.replace("https://", "") ]
   ]
 
 

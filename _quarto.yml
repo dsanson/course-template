@@ -43,7 +43,7 @@ metadata:
       name: Illinois State University
   course:
     number: 1xx
-    title: "An Introduction to the Principles of Underwater Basketweaving"
+    title: "Introduction to Underwater Basketweaving"
     term: Paideia 
     shortterm: p
     year: 1991
@@ -52,7 +52,6 @@ metadata:
       url: "https://www.davidsanson.com"
       office: Stevenson 341
     institution: Illinois State University
-    slug: "{{< meta course.number >}}{{< meta course.shortterm >}}{{< meta course.year >}}"
     url: "https://www.davidsanson.com/1xxp1991"
     meeting:
       - time: MW 2:00--3:15pm
@@ -64,6 +63,8 @@ metadata:
     office-hours:
       time: "M noon--1:00PM; W 11:00AM--noon"
       place: Stevenson 341
+    short-description: "Practical skills build future careers"
+    prerequisites: "Intermediate Swimming or permission of instructor"
     description: |
       {{< lipsum 1 >}}
 
