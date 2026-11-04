@@ -26,6 +26,7 @@
   filecolor: none,
 
   course-title: none,
+  course-catalog-title: none,
   course-number: none,
   description: none,
   short-description: none,
@@ -47,7 +48,7 @@
     margin: (top: 0.35in, bottom: 0.35in, left: 0.48in, right: 0.48in),
     footer: [],
   )
-  set text(font: font, size: 10pt, fill: black)
+  set text(font: font, size: 12pt, fill: black)
   set par(leading: 0.5em)
   let light-accent-color = if light-accent-color == none {
     accent-color.lighten(90%)
@@ -76,21 +77,25 @@
       #set align(center)
       #set par(leading: .2em)
       #set par(spacing: .4em)
-      #set text(size: 28pt, weight: "bold")
+      #set text(size: 20pt, weight: "bold")
       #text(fill: accent-color)[#smallcaps[phi]]#text[#course-number]
+      
+      #if course-catalog-title != none {
+        text(size: 20pt, weight: "bold", fill: black)[#smallcaps[#course-catalog-title]]
+      }
 
-      #text(size: 28pt, weight: "bold", fill: black)[#smallcaps[#course-title]]
+
     ]
   ]
 
   place(
     top + center,
-    dy: 2in,
+    dy: 1.5in,
   )[
     #if image-path != none {
       set par(spacing: .1em)
       set align(right)
-      image(image-path, width: 100% - .66in, height: 3in, fit: "cover")
+      image(image-path, width: 100% - .66in, height: 3.5in, fit: "cover")
 
       if image-attribution != none {
         text(size: 6pt, style: "italic")[#image-attribution]
@@ -109,33 +114,29 @@
       height: 5in,
       clip: true,
     )[
-      #text(size:18pt, weight: "bold")[
-        #short-description
-      ]
 
-      #text[
-        #instructor
-        #box(image("media/fleuron.svg", width: 1.5em))
-        #course-term #course-year
-      ]
+      #text(size: 28pt, weight: "bold", fill: black)[#smallcaps[#course-title]]
+
 
       #grid(
         columns: (1.5fr, 0.5fr),
+        rows: (3.8in,),
         gutter: 0.16in,
 
         block(
+          height: 100%,
         )[
           #set align(left)
           #set par(spacing: 1em)
 
           #if description != none {
-            text(weight: "bold")[About the course. ]
             description
           }
           
           #doc
 
           #if prerequisites != none  { 
+            v(1fr)
             text(weight: "bold")[Prerequisites. ]
             prerequisites
           }
@@ -147,6 +148,11 @@
         )[
           #set text(size: 9pt)
           #set align(right)
+
+          #line(length: 100%, stroke: 0.8pt + muted)
+
+          #instructor \
+          #course-term #course-year
 
           #line(length: 100%, stroke: 0.8pt + muted)
 

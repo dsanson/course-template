@@ -43,6 +43,7 @@ metadata:
       name: Illinois State University
   course:
     number: 1xx
+    catalog-title: "Applied Philosophy"
     title: "Introduction to Underwater Basketweaving"
     term: Paideia 
     shortterm: p

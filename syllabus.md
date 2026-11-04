@@ -1,5 +1,5 @@
 ---
-title: 'Syllabus: PHI {{< meta course.number >}}}'
+title: 'PHI {{< meta course.number >}}: {{< meta course.catalog-title >}}'
 subtitle: "{{< meta course.institution >}}, {{< meta course.term >}} {{< meta course.year >}}"
 type: syllabus
 ---

@@ -14,6 +14,7 @@ format:
       - templates/flyer/typst-template.typ
       - templates/flyer/typst-show.typ
     filters: []
+    mainfont: "Libertinus Sans"
 ---
 
 **Blurb**. If 'course.description' or 'course.prerequisites' are defined in your project's metadata, they will be used here. But you can also just

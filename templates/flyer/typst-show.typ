@@ -62,6 +62,10 @@ $endif$
 $if(course.title)$
   course-title: "$course.title$",
 $endif$
+$if(course.catalog-title)$
+  course-catalog-title: "$course.catalog-title$",
+$endif$
+
 $if(course.number)$
   course-number: "$course.number$",
 $endif$
